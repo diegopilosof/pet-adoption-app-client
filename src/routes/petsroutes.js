@@ -76,6 +76,11 @@ const returnToShelter = async (petID, userID) => {
   return response.data;
 };
 
+const addPet = async (pet) => {
+  const response = await axios.post(`${baseURL}/addpet`, pet);
+  return response.data;
+};
+
 export default {
   allPets,
   specificPet,
@@ -87,4 +92,5 @@ export default {
   deleteFromFoster,
   adoptPet,
   returnToShelter,
+  addPet,
 };

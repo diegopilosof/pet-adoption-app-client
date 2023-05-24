@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Pets from "./pages/Pets";
 import Mypets from "./pages/Mypets";
-import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PetDescription from "./pages/PetDescription";
@@ -12,6 +11,8 @@ import Faq from "./pages/Faq";
 import UserProvider from "./context/UserContext";
 import PetProvider from "./context/PetContext";
 import ProfilePage from "./pages/ProfilePage";
+import AdminDashboard from "./pages/AdminDashboard";
+import Addpet from "./pages/Addpet";
 
 function App() {
   return (
@@ -25,9 +26,11 @@ function App() {
               <Route path="pets" element={<Pets />} />
               <Route path="pets/:petId" element={<PetDescription />} />
               <Route path="mypets" element={<Mypets />} />
-              <Route path="profile" element={<Profile />} />
               <Route path="faq" element={<Faq />} />
               <Route path="profilepage" element={<ProfilePage />} />
+              <Route path="admindashboard" element={<AdminDashboard />} />
+              <Route path="addpet" element={<Addpet />} />
+
               {/* <Route path="*" element={<NoPage />} /> */}
             </Routes>
           </BrowserRouter>

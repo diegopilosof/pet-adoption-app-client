@@ -80,7 +80,7 @@ const Navbar = () => {
                     <div className="menu-dropdown-content">
                       <a href="/profilepage">My profile</a>
                       {loggedUser.isAdmin ? (
-                        <a href="/admin">Admin Dashboard</a>
+                        <a href="/admindashboard">Admin</a>
                       ) : null}
                       <a href="#" onClick={handleLogout}>
                         Log out

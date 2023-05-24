@@ -23,8 +23,11 @@ import {
   AlertDescription,
   CloseButton,
   Heading,
+  Wrap,
+  Image,
 } from "@chakra-ui/react";
 import usersroutes from "../routes/usersroutes";
+import fondoperritos from "../design/fondo_perritos.jpg";
 
 // TODO: put the name of the user in the input fields
 // TODO: put the profile picture of the user in the avatar
@@ -89,6 +92,9 @@ const ProfilePage = () => {
     // form.append("confirmPassword", user.confirmPassword);
     form.append("profilePicture", profilePicture);
 
+    // const response = await usersroutes.updateProfile(loggedUser._id, form);
+    // console.log(response);
+
     toast({
       title: "Successful Profile Update!",
       description: "Our furry friends are willing to meet your new version!",
@@ -113,109 +119,121 @@ const ProfilePage = () => {
   // }, [user.password, user.confirmPassword]);
 
   return (
-    <Center display="flex" flexDirection="column">
-      <Flex
-        flexDirection="column"
-        mt={10}
-        justify="center"
-        align="center"
-        border="1px solid grey"
-        p={10}
-        borderRadius="40"
-        borderColor="#CBD5E0"
-      >
-        <Heading>Profile Settings</Heading>
-        <p>Manage Your Pet App Account and Preferences</p>
-        <WrapItem>
-          <Avatar
-            size="2xl"
-            name={user.firstName + " " + user.lastName}
-            src={user.profilePicture}
-            mb={5}
-            value={user.profilePicture}
-          />{" "}
-        </WrapItem>
-        <FormControl>
-          <Center>
-            <FormLabel>Profile Picture</FormLabel>
-          </Center>
-          <Input
-            name="profilePicture"
-            placeholder="Profile Picture"
-            borderRadius="40"
-            color="black"
-            type="file"
-            mb={5}
-            onChange={handlePictureChange}
-          />
-        </FormControl>
-        <Flex gap={5}>
+    <div>
+      <Box>
+        <Image
+          src={fondoperritos}
+          alt="logo"
+          w="100%"
+          h="200px"
+          objectPosition="45% 45%"
+          objectFit="cover"
+          mb={5}
+        />
+      </Box>
+      <Center display="flex" flexDirection="column">
+        <Flex
+          flexDirection="column"
+          mt={10}
+          justify="center"
+          align="center"
+          border="1px solid grey"
+          p={10}
+          borderRadius="40"
+          borderColor="#CBD5E0"
+        >
+          <Heading>Profile Settings</Heading>
+          <p>Manage Your Pet App Account and Preferences</p>
+          <WrapItem>
+            <Avatar
+              size="2xl"
+              name={user.firstName + " " + user.lastName}
+              src={user.profilePicture}
+              mb={5}
+              value={user.profilePicture}
+            />{" "}
+          </WrapItem>
           <FormControl>
             <Center>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>Profile Picture</FormLabel>
             </Center>
             <Input
-              name="firstName"
+              name="profilePicture"
+              placeholder="Profile Picture"
               borderRadius="40"
               color="black"
+              type="file"
               mb={5}
-              defaultValue={loggedUser?.firstName}
-              onChange={handleProfileChange}
-              value={user.firstName}
+              onChange={handlePictureChange}
             />
           </FormControl>
-          <FormControl>
-            <Center>
-              <FormLabel>Last Name</FormLabel>
-            </Center>
-            <Input
-              name="lastName"
-              placeholder="Last Name"
-              borderRadius="40"
-              color="black"
-              mb={5}
-              value={user.lastName}
-              onChange={handleProfileChange}
-            />
-          </FormControl>
-        </Flex>
-        <Flex gap={5}>
-          <FormControl>
-            <Center>
-              <FormLabel>Phone Number</FormLabel>
-            </Center>
-            <Input
-              name="phoneNumber"
-              placeholder="Phone Number"
-              borderRadius="40"
-              color="black"
-              type="tel"
-              mb={5}
-              onChange={handleProfileChange}
-              value={user.phoneNumber}
-            />
-          </FormControl>
-          <FormControl>
-            <Center>
-              <FormLabel>Email</FormLabel>
-            </Center>
-            <Input
-              name="email"
-              placeholder="Email"
-              borderRadius="40"
-              color="black"
-              type="tel"
-              mb={5}
-              onChange={handleProfileChange}
-              value={user.email}
-            />
-          </FormControl>
-        </Flex>
-        <Flex flexDirection="column">
           <Flex gap={5}>
-            {/* <FormControl> */}
-            {/* <Center> */}
-            {/* <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Center>
+                <FormLabel>First Name</FormLabel>
+              </Center>
+              <Input
+                name="firstName"
+                borderRadius="40"
+                color="black"
+                mb={5}
+                defaultValue={loggedUser?.firstName}
+                onChange={handleProfileChange}
+                value={user.firstName}
+              />
+            </FormControl>
+            <FormControl>
+              <Center>
+                <FormLabel>Last Name</FormLabel>
+              </Center>
+              <Input
+                name="lastName"
+                placeholder="Last Name"
+                borderRadius="40"
+                color="black"
+                mb={5}
+                value={user.lastName}
+                onChange={handleProfileChange}
+              />
+            </FormControl>
+          </Flex>
+          <Flex gap={5}>
+            <FormControl>
+              <Center>
+                <FormLabel>Phone Number</FormLabel>
+              </Center>
+              <Input
+                name="phoneNumber"
+                placeholder="Phone Number"
+                borderRadius="40"
+                color="black"
+                type="tel"
+                mb={5}
+                onChange={handleProfileChange}
+                value={user.phoneNumber}
+              />
+            </FormControl>
+            <FormControl>
+              <Center>
+                <FormLabel>Email</FormLabel>
+              </Center>
+              <Input
+                name="email"
+                placeholder="Email"
+                borderRadius="40"
+                color="black"
+                type="tel"
+                mb={5}
+                onChange={handleProfileChange}
+                value={user.email}
+              />
+            </FormControl>
+          </Flex>
+          <Flex flexDirection="column">
+            <Flex gap={5}>
+              {/* <FormControl> */}
+              {/* <Center> */}
+              {/* <FormLabel>Password</FormLabel>
               </Center>
               <Input
                 name="password"
@@ -241,8 +259,8 @@ const ProfilePage = () => {
                 onChange={handleProfileChange}
               />
             </FormControl> */}
-          </Flex>
-          {/* {passwordMatch && (
+            </Flex>
+            {/* {passwordMatch && (
             <Alert status="error" mb={5}>
               <AlertIcon />
               <AlertTitle>Uups!</AlertTitle>
@@ -251,20 +269,21 @@ const ProfilePage = () => {
               </AlertDescription>
             </Alert>
           )} */}
+          </Flex>
+          <Button
+            variant="solid"
+            bg="#7ED957"
+            color="white"
+            _hover={{
+              bg: "#5ce1e6",
+            }}
+            onClick={updateProfile}
+          >
+            Save Changes
+          </Button>
         </Flex>
-        <Button
-          variant="solid"
-          bg="#7ED957"
-          color="white"
-          _hover={{
-            bg: "#5ce1e6",
-          }}
-          onClick={updateProfile}
-        >
-          Save Changes
-        </Button>
-      </Flex>
-    </Center>
+      </Center>
+    </div>
   );
 };
 

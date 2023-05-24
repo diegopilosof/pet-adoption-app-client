@@ -9,12 +9,15 @@ import {
   TabList,
   TabPanels,
   Text,
+  Box,
+  Image,
 } from "@chakra-ui/react";
 import PetCard from "../components/PetCard";
 import petsroutes from "../routes/petsroutes";
 import { useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { PetContext } from "../context/PetContext";
+import fondohamsters from "../design/fondo_hamsters.jpg";
 
 const Mypets = () => {
   const { loggedUser } = React.useContext(UserContext);
@@ -24,6 +27,17 @@ const Mypets = () => {
 
   return (
     <div>
+      <Box>
+        <Image
+          src={fondohamsters}
+          alt="logo"
+          w="100%"
+          h="200px"
+          objectFit="cover"
+          objectPosition="50% 50%"
+          mb={5}
+        />
+      </Box>
       <Center display="flex" flexDirection="column">
         <Flex
           flexDirection="column"
