@@ -1,22 +1,17 @@
-import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import petsroutes from "../routes/petsroutes";
 import { useState, useEffect } from "react";
-import PetCard from "../components/PetCard";
 import {
   Center,
   Flex,
   Heading,
-  Box,
   Image,
   Text,
-  Stack,
   Button,
   Divider,
   Card,
   CardBody,
-  CardFooter,
-  Tooltip,
 } from "@chakra-ui/react";
 import heartgrey from "../design/heartgrey.svg";
 import dietary from "../design/dietary.svg";
@@ -33,24 +28,14 @@ import adoptgrey from "../design/adoptgrey.svg";
 import adoptgreen from "../design/adoptgreen.svg";
 import { UserContext } from "../context/UserContext";
 import { PetContext } from "../context/PetContext";
-import { useContext } from "react";
-
-//TODO:image gallery of pets
-// TODO: CHANGE HEART TO GREEN WHEN HOVERING AND IF PET IS ADOPTED
-//TODO: add a button to adopt the pet
-//TODO: add a button to share the pet
-//TODO: add a button to see all the pets
 
 const PetDescription = () => {
   const { loggedUser } = useContext(UserContext);
   const {
     sendAddToWishlist,
-    animals,
     deleteFromWishlist,
     sendAddToFoster,
     deleteFromFoster,
-    filteredAnimals,
-    fosteredAnimals,
     adoptPet,
     returnToShelter,
   } = useContext(PetContext);
@@ -97,7 +82,7 @@ const PetDescription = () => {
                       </Heading>
                     </Flex>
                     <Flex>
-                      {myPets.adopterUser === loggedUser._id ? (
+                      {myPets.adopterUser === loggedUser?._id ? (
                         <Button variant="ghost">
                           <Image
                             w="40px"
@@ -130,7 +115,7 @@ const PetDescription = () => {
                           />
                         </Button>
                       )}
-                      {myPets.fosterUser === loggedUser._id ? (
+                      {myPets.fosterUser === loggedUser?._id && loggedUser ? (
                         <Button variant="ghost" color="#7ED957">
                           <Image
                             w="40px"
@@ -159,7 +144,7 @@ const PetDescription = () => {
                           />
                         </Button>
                       )}
-                      {myPets.wishlist.includes(loggedUser._id) ? (
+                      {myPets.wishlist.includes(loggedUser?._id) ? (
                         <Button variant="ghost" color="#7ED957">
                           <Image
                             w="40px"

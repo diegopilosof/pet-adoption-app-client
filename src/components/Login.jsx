@@ -1,4 +1,4 @@
-import React, { useEffect, createContext } from "react";
+import React from "react";
 import {
   Button,
   Modal,
@@ -9,26 +9,18 @@ import {
   ModalBody,
   useDisclosure,
   FormControl,
-  FormLabel,
   Input,
   ModalCloseButton,
-  Text,
   Center,
   Image,
   Flex,
   Link,
 } from "@chakra-ui/react";
-import Signup from "./Signup";
 import facebook from "../design/facebook.svg";
 import google from "../design/google.svg";
 import { useState } from "react";
-import axios from "axios";
-import usersroutes from "../routes/usersroutes";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-
-//TODO: ADD THE SIGNUP WITH GOOGLE AND FACEBOOK
-//TODO: ADD THE DONT HAVE AN ACCOUNT? SIGN UP HERE
 
 export const Login = (props) => {
   const { handleLoginSubmit, loggedUser } = useContext(UserContext);
@@ -40,7 +32,6 @@ export const Login = (props) => {
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
-    name: "",
   });
 
   const handleUserLogin = (e) => {
@@ -100,21 +91,6 @@ export const Login = (props) => {
               />
             </FormControl>
           </ModalBody>
-          {/* <Center align="center" justify="center">
-            Don't have an account?
-            <Text
-              onClick={createAccount}
-              color="blue"
-              ml={2}
-              mt={3}
-              _hover={{
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-            >
-              Create one here!
-            </Text>
-          </Center> */}
           <Center>Got socials? Connect with us!</Center>
           <Flex justify="center" align="center" gap={5} mb={5}>
             <Button

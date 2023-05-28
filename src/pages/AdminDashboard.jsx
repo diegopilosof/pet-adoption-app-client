@@ -53,7 +53,7 @@ const AdminDashboard = () => {
             <Heading>Manage Pets</Heading>
             <p>View, Edit, and Delete Pets</p>
             <Center flexDirection="column" justify="center" align="center">
-              <a href="/pets">
+              <a href="/managepets">
                 <Button
                   variant="solid"
                   bg="#7ED957"
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
                   }}
                   mb={5}
                 >
-                  See All Pets
+                  Manage Pets
                 </Button>
               </a>
               <a href="/addpet">
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
             <Heading>Manage Users</Heading>
             <p>View, Edit, and Delete User Accounts</p>
             <Center flexDirection="column" justify="center" align="center">
-              <a href="/pets">
+              <a href="/manageusers">
                 <Button
                   variant="solid"
                   bg="#7ED957"

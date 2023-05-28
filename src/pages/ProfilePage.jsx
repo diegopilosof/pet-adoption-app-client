@@ -38,7 +38,7 @@ import fondoperritos from "../design/fondo_perritos.jpg";
 // TODO: make the input fields save the changes to the database WITH A BUTTON
 
 const ProfilePage = () => {
-  const { loggedUser } = useContext(UserContext);
+  const { loggedUser, handleUpdateProfile } = useContext(UserContext);
   const [user, setUser] = useState({
     firstName: loggedUser?.firstName,
     lastName: loggedUser?.lastName,
@@ -76,24 +76,25 @@ const ProfilePage = () => {
 
   const handlePictureChange = (e) => {
     setProfilePicture(e.target.files[0]);
-    console.log(profilePicture);
+    setUser({ ...user, profilePicture: e.target.files[0] });
   };
 
   const updateProfile = async (e) => {
     e.preventDefault();
-    console.log(user.profilePicture);
 
     const form = new FormData();
+
+    console.log(form);
     form.append("firstName", user.firstName);
     form.append("lastName", user.lastName);
     form.append("email", user.email);
     form.append("phoneNumber", user.phoneNumber);
-    // form.append("password", user.password);
-    // form.append("confirmPassword", user.confirmPassword);
+    form.append("password", user.password);
+    form.append("confirmPassword", user.confirmPassword);
     form.append("profilePicture", profilePicture);
 
-    // const response = await usersroutes.updateProfile(loggedUser._id, form);
-    // console.log(response);
+    const response = await usersroutes.updateProfile(form);
+    handleUpdateProfile(response);
 
     toast({
       title: "Successful Profile Update!",
@@ -106,17 +107,17 @@ const ProfilePage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (user.password !== user.confirmPassword) {
-  //     console.log("passwords don't match");
-  //     console.log(user.password, user.confirmPassword);
-  //     setpasswordMatch(true);
-  //   } else {
-  //     console.log("passwords match");
-  //     console.log(user.password, user.confirmPassword);
-  //     setpasswordMatch(false);
-  //   }
-  // }, [user.password, user.confirmPassword]);
+  useEffect(() => {
+    if (user.password !== user.confirmPassword) {
+      console.log("passwords don't match");
+      console.log(user.password, user.confirmPassword);
+      setpasswordMatch(true);
+    } else {
+      console.log("passwords match");
+      console.log(user.password, user.confirmPassword);
+      setpasswordMatch(false);
+    }
+  }, [user.password, user.confirmPassword]);
 
   return (
     <div>
@@ -150,8 +151,7 @@ const ProfilePage = () => {
               name={user.firstName + " " + user.lastName}
               src={user.profilePicture}
               mb={5}
-              value={user.profilePicture}
-            />{" "}
+            />
           </WrapItem>
           <FormControl>
             <Center>
@@ -231,44 +231,44 @@ const ProfilePage = () => {
           </Flex>
           <Flex flexDirection="column">
             <Flex gap={5}>
-              {/* <FormControl> */}
-              {/* <Center> */}
-              {/* <FormLabel>Password</FormLabel>
-              </Center>
-              <Input
-                name="password"
-                placeholder="New Password"
-                borderRadius="40"
-                color="black"
-                type="password"
-                mb={5}
-                onChange={handleProfileChange}
-              />
-            </FormControl>
-            <FormControl>
-              <Center>
-                <FormLabel>Repeat Password</FormLabel>
-              </Center>
-              <Input
-                name="confirmPassword"
-                placeholder="Repeat New Password"
-                borderRadius="40"
-                color="black"
-                type="password"
-                mb={5}
-                onChange={handleProfileChange}
-              />
-            </FormControl> */}
+              <FormControl>
+                <Center>
+                  <FormLabel>Password</FormLabel>
+                </Center>
+                <Input
+                  name="password"
+                  placeholder="New Password"
+                  borderRadius="40"
+                  color="black"
+                  type="password"
+                  mb={5}
+                  onChange={handleProfileChange}
+                />
+              </FormControl>
+              <FormControl>
+                <Center>
+                  <FormLabel>Repeat Password</FormLabel>
+                </Center>
+                <Input
+                  name="confirmPassword"
+                  placeholder="Repeat New Password"
+                  borderRadius="40"
+                  color="black"
+                  type="password"
+                  mb={5}
+                  onChange={handleProfileChange}
+                />
+              </FormControl>
             </Flex>
-            {/* {passwordMatch && (
-            <Alert status="error" mb={5}>
-              <AlertIcon />
-              <AlertTitle>Uups!</AlertTitle>
-              <AlertDescription>
-                It looks like your passwords don't match. Please try again.
-              </AlertDescription>
-            </Alert>
-          )} */}
+            {passwordMatch && (
+              <Alert status="error" mb={5}>
+                <AlertIcon />
+                <AlertTitle>Uups!</AlertTitle>
+                <AlertDescription>
+                  It looks like your passwords don't match. Please try again.
+                </AlertDescription>
+              </Alert>
+            )}
           </Flex>
           <Button
             variant="solid"

@@ -1,6 +1,5 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import usersroutes from "../routes/usersroutes";
 import petsroutes from "../routes/petsroutes";
 import { UserContext } from "./UserContext";
 import { useToast } from "@chakra-ui/react";
@@ -30,7 +29,6 @@ const PetProvider = ({ children }) => {
     try {
       const response = await petsroutes.allPets();
       setAnimals(response);
-      // setAnimals(response.slice(0, limit)); // Use slice() to get only the first N pets
     } catch (error) {
       console.log(error);
     }

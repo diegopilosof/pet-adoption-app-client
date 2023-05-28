@@ -13,6 +13,9 @@ import PetProvider from "./context/PetContext";
 import ProfilePage from "./pages/ProfilePage";
 import AdminDashboard from "./pages/AdminDashboard";
 import Addpet from "./pages/Addpet";
+import ManageUsers from "./pages/ManageUsers";
+import ManagePets from "./pages/ManagePets";
+import EditPet from "./pages/EditPet";
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
               <Route path="profilepage" element={<ProfilePage />} />
               <Route path="admindashboard" element={<AdminDashboard />} />
               <Route path="addpet" element={<Addpet />} />
+              <Route path="manageusers" element={<ManageUsers />} />
+              <Route path="managepets" element={<ManagePets />} />
+              <Route path="managepets/:petId" element={<EditPet />} />
 
               {/* <Route path="*" element={<NoPage />} /> */}
             </Routes>

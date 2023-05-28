@@ -9,31 +9,21 @@ import {
   ModalBody,
   useDisclosure,
   FormControl,
-  FormLabel,
   Input,
   ModalCloseButton,
-  Text,
   Center,
   Image,
   Flex,
-  Link,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Toast,
-  ToastBody,
   useToast,
 } from "@chakra-ui/react";
 import facebook from "../design/facebook.svg";
 import google from "../design/google.svg";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-// TODO: Add A RED SIGN IF PASSWORDS DO NOT MATCH SOLVE
-// TODO: add the signup with google and facebook
-// TODO: add a success toast when you create the account AND AN ERROR TOAST WHEN YOU DONT
-// TODO: CHANGE HOVERS TO DARKER GREEN INSTEAD OF BLUE
 
 const Signup = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,7 +65,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3002/api/users",
+        `${process.env.REACT_APP_BACKEND_URL}/api/users`,
         userDetails
       );
       toast({
@@ -98,6 +88,7 @@ const Signup = () => {
       });
       console.log(error);
     }
+    onClose();
   };
 
   return (

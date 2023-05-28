@@ -10,8 +10,6 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 
-//TODO: CORRECT THE THING WITH THE ACCORDION
-
 const Faq = () => {
   return (
     <div>

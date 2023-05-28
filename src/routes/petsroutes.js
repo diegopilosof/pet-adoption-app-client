@@ -1,11 +1,10 @@
 import axios from "axios";
-import { UserContext } from "../context/UserContext";
-import { useContext } from "react";
+const token = localStorage.getItem("token");
 
-const baseURL = "http://localhost:3002/api/pets";
+const baseURL = `${process.env.REACT_APP_BACKEND_URL}/api/pets`;
 
 const allPets = async () => {
-  const response = await axios.get(baseURL);
+  const response = await axios.get(`${baseURL}/pets`);
   return response.data;
 };
 
@@ -15,6 +14,7 @@ const specificPet = async (id) => {
 };
 
 const filterPets = async (filter) => {
+  console.log(filter);
   const response = await axios.post(`${baseURL}/filter/`, filter);
   return response.data;
 };
@@ -77,7 +77,22 @@ const returnToShelter = async (petID, userID) => {
 };
 
 const addPet = async (pet) => {
-  const response = await axios.post(`${baseURL}/addpet`, pet);
+  console.log(token);
+  const response = await axios.post(`${baseURL}/addpet`, pet, {
+    headers: {
+      Authorization: token && `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+const editPet = async (pet) => {
+  console.log(pet);
+  const response = await axios.put(`${baseURL}/editpet`, pet, {
+    headers: {
+      Authorization: token && `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -93,4 +108,5 @@ export default {
   adoptPet,
   returnToShelter,
   addPet,
+  editPet,
 };

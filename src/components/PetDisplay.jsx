@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Center, Flex } from "@chakra-ui/react";
-import paw from "../design/paw.svg";
-import { Image, Heading, Button } from "@chakra-ui/react";
+import { Heading, Button } from "@chakra-ui/react";
 import PetCard from "./PetCard";
-import petsroutes from "../routes/petsroutes";
-import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { PetContext } from "../context/PetContext";
 

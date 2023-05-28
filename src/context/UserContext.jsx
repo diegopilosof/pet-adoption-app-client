@@ -18,14 +18,12 @@ const UserProvider = ({ children }) => {
     }
   }, []);
 
-  console.log("loggedUser", loggedUser);
-
   const handleLoginSubmit = async (userLogin) => {
+    console.log(userLogin);
+    console.log("login");
     try {
       const res = await usersroutes.loginUser(userLogin);
-      console.log(res);
       localStorage.setItem("token", res.token);
-      // localStorage.setItem("user", JSON.stringify(res.payload));
       setLoggedUser(res.payload);
       toast({
         title: "Pawsome login!",
@@ -37,7 +35,6 @@ const UserProvider = ({ children }) => {
         variant: "subtle",
       });
     } catch (error) {
-      // Handle the error
       toast({
         title: "Houston, we have a problem...",
         description: `Please PAWS and Try Again! ${error.response.data.error}`,
@@ -47,6 +44,10 @@ const UserProvider = ({ children }) => {
         variant: "subtle",
       });
     }
+  };
+
+  const handleUpdateProfile = async (user) => {
+    setLoggedUser(user);
   };
 
   const handleLogout = () => {
@@ -62,6 +63,7 @@ const UserProvider = ({ children }) => {
         isLogged,
         setIsLogged,
         handleLogout,
+        handleUpdateProfile,
       }}
     >
       {children}

@@ -8,8 +8,8 @@ import {
   Stack,
   Heading,
   Text,
+  Tag,
 } from "@chakra-ui/react";
-import dog2 from "../design/dog2.jpg";
 import heartgrey from "../design/heartgrey.svg";
 import heartgreen from "../design/heartgreen.svg";
 import { useEffect, useState } from "react";
@@ -20,19 +20,13 @@ import { PetContext } from "../context/PetContext";
 import fostergrey from "../design/fostergrey.svg";
 import fostergreen from "../design/fostergreen.svg";
 
-// TODO: CHANGE HEART TO GREEN WHEN HOVERING AND IF PET IS ADOPTED
-//TODO: add a CONDITIONAL TAG to show if the pet is adopted or not
-
 const PetCard = ({ animal }) => {
   const { loggedUser } = useContext(UserContext);
   const {
     sendAddToWishlist,
-    animals,
     deleteFromWishlist,
     sendAddToFoster,
     deleteFromFoster,
-    filteredAnimals,
-    fosteredAnimals,
   } = useContext(PetContext);
 
   let navigate = useNavigate();
@@ -49,17 +43,32 @@ const PetCard = ({ animal }) => {
   };
 
   return (
-    <Card w={270} h={430}>
+    <Card w={270} h={450}>
       <CardBody>
         <Image
           src={myPets.picture}
           alt={myPets.name}
           borderRadius="lg"
           w="100%"
+          h="200px"
+          objectFit="cover"
         />
         <Stack mt="6" spacing="3">
           <Heading size="md">{myPets.name}</Heading>
-          <Text>{myPets.bio}</Text>
+          <Text>{myPets.breed}</Text>
+          {myPets.adoptedUser ? (
+            <Tag colorScheme="teal" w="80px">
+              Adopted
+            </Tag>
+          ) : myPets.fosterUser ? (
+            <Tag colorScheme="yellow" w="80px">
+              Fostered
+            </Tag>
+          ) : (
+            <Tag colorScheme="green" w="80px">
+              Available
+            </Tag>
+          )}
         </Stack>
       </CardBody>
       <CardFooter
@@ -78,7 +87,7 @@ const PetCard = ({ animal }) => {
         >
           See more
         </Button>
-        {myPets.fosterUser === loggedUser?._id ? (
+        {myPets.fosterUser === loggedUser?._id && loggedUser ? (
           <Button variant="ghost" color="#7ED957">
             <Image
               w="40px"

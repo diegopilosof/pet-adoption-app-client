@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
+import petsroutes from "../routes/petsroutes";
+import { useState, useEffect } from "react";
 import {
   Box,
   Image,
   Center,
-  Flex,
   Heading,
-  WrapItem,
-  Avatar,
+  Button,
   FormControl,
   FormLabel,
   Input,
-  Button,
   Select,
-  Textarea,
-  Radio,
-  RadioGroup,
-  Stack,
-  Tooltip,
+  WrapItem,
+  Avatar,
+  Flex,
   useToast,
+  Textarea,
+  Tooltip,
+  Radio,
+  Stack,
+  RadioGroup,
 } from "@chakra-ui/react";
 import perrito from "../design/perrito_palo.jpg";
-import petsroutes from "../routes/petsroutes";
 
-const AddPet = () => {
-  const toast = useToast();
+const EditPet = () => {
+  const { petId } = useParams();
   const [pet, setPet] = useState({
     name: "",
     type: "",
@@ -38,6 +40,20 @@ const AddPet = () => {
     bio: "",
     color: "",
   });
+  const toast = useToast();
+
+  const getPetDescription = async () => {
+    try {
+      const response = await petsroutes.specificPet(petId);
+      setPet(response[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPetDescription();
+  }, []);
 
   const handlePet = (e) => {
     setPet({ ...pet, [e.target.name]: e.target.value });
@@ -50,7 +66,7 @@ const AddPet = () => {
     console.log(e.target.files[0]);
   };
 
-  const addPet = async (e) => {
+  const editPet = async (e) => {
     e.preventDefault();
     const form = new FormData();
     form.append("name", pet.name);
@@ -66,17 +82,26 @@ const AddPet = () => {
     form.append("bio", pet.bio);
     form.append("color", pet.color);
 
-    const response = await petsroutes.addPet(form);
-
-    toast({
-      title: "Pawsome New Add!!",
-      description: "This new friends is willing to find a family!",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-      bg: "#7ed957",
-      variant: "subtle",
-    });
+    try {
+      const response = await petsroutes.editPet(pet, form);
+      console.log(response);
+      toast({
+        title: "Pet Edited",
+        description: "Pet has been edited successfully",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Pet has not been edited",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -103,10 +128,10 @@ const AddPet = () => {
           borderRadius="40"
           borderColor="#CBD5E0"
         >
-          <Heading>Add a Pet</Heading>
-          <p>Share the Love - Add a New Furry Friend</p>
+          <Heading>Edit Pet</Heading>
+          <p>Paws-itively Adorable: Customize Your Pet's Perfect Profile</p>
           <WrapItem>
-            <Avatar size="2xl" name="" src="" mb={5} />
+            <Avatar size="2xl" name="" src={pet?.picture} mb={5} />
           </WrapItem>
           <FormControl>
             <Center>
@@ -120,7 +145,6 @@ const AddPet = () => {
               type="file"
               mb={5}
               onChange={handlePicture}
-              required
             />
           </FormControl>
           <FormControl>
@@ -131,7 +155,7 @@ const AddPet = () => {
               name="name"
               borderRadius="40"
               color="black"
-              value={pet.name}
+              value={pet?.name}
               mb={5}
               placeholder="Name"
               onChange={handlePet}
@@ -148,7 +172,7 @@ const AddPet = () => {
               borderRadius={40}
               color="black"
               mb={5}
-              value={pet.type}
+              value={pet?.type}
               onChange={handlePet}
             >
               <option value="dog">Dog</option>
@@ -168,7 +192,7 @@ const AddPet = () => {
               borderRadius={40}
               color="black"
               mb={5}
-              value={pet.adoptionStatus}
+              value={pet?.adoptionStatus}
               onChange={handlePet}
             >
               <option value="available">Available</option>
@@ -192,7 +216,7 @@ const AddPet = () => {
               borderRadius={40}
               color="black"
               mb={5}
-              value={pet.size}
+              value={pet?.size}
               onChange={handlePet}
             >
               <option value="small">Small</option>
@@ -211,7 +235,7 @@ const AddPet = () => {
               borderRadius="40"
               color="black"
               mb={5}
-              value={pet.breed}
+              value={pet?.breed}
               onChange={handlePet}
             />
           </FormControl>
@@ -230,7 +254,7 @@ const AddPet = () => {
               borderRadius="40"
               color="black"
               mb={5}
-              value={pet.color}
+              value={pet?.color}
               onChange={handlePet}
             />
           </FormControl>
@@ -245,7 +269,11 @@ const AddPet = () => {
             </Center>
             <RadioGroup mb={5}>
               <Stack>
-                <Radio name="hypoallergenic" value="yes" onChange={handlePet}>
+                <Radio
+                  name="hypoallergenic"
+                  value={pet?.hypoallergenic}
+                  onChange={handlePet}
+                >
                   Yes
                 </Radio>
                 <Radio name="hypoallergenic" value="no" onChange={handlePet}>
@@ -265,7 +293,7 @@ const AddPet = () => {
               color="black"
               type="number"
               mb={5}
-              value={pet.age}
+              value={pet?.age}
               onChange={handlePet}
             />
           </FormControl>
@@ -282,7 +310,7 @@ const AddPet = () => {
               placeholder="Biography"
               size="md"
               mb={5}
-              value={pet.bio}
+              value={pet?.bio}
               onChange={handlePet}
               name="bio"
             />
@@ -299,7 +327,7 @@ const AddPet = () => {
             <Textarea
               placeholder="List of dietary restrictions"
               size="md"
-              value={pet.dietaryRestrictions}
+              value={pet?.dietaryRestrictions}
               onChange={handlePet}
               name="dietaryRestrictions"
             />
@@ -312,7 +340,7 @@ const AddPet = () => {
               bg: "#5ce1e6",
             }}
             mt={5}
-            onClick={addPet}
+            onClick={editPet}
           >
             Save Changes
           </Button>
@@ -322,4 +350,4 @@ const AddPet = () => {
   );
 };
 
-export default AddPet;
+export default EditPet;

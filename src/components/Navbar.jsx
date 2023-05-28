@@ -1,21 +1,14 @@
 import React, { useContext, useEffect } from "react";
-// import { Link } from "react-router-dom";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import logo from "../design/logotipo.png";
-// import { useState, useRef } from "react";
 import Login from "./Login";
-import { Outlet, Link } from "react-router-dom";
-import { useDisclosure } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 import Signup from "./Signup";
-import { Text, Center } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import { UserContext } from "../context/UserContext";
 import { useState } from "react";
-import usersroutes from "../routes/usersroutes";
-
-// TODO: MAKE IT BIGGER, BIGGER AND NEW LOGO
 
 const Navbar = () => {
   const { loggedUser, isLogged, handleLogout } = useContext(UserContext);
@@ -57,19 +50,11 @@ const Navbar = () => {
               {!isLoggedIn ? (
                 <Center>
                   <li>
-                    <Login
-                    // onLoginClose={onLoginClose}
-                    // onSignupOpen={onSignupOpen}
-                    // isLoginopen={isLoginopen}
-                    />
+                    <Login />
                   </li>
                   <li>
                     <a href="#">
-                      <Signup
-                      // onSignupClose={onSignupClose}
-                      // onLoginOpen={onLoginOpen}
-                      // isSignupOpen={isSignupOpen}
-                      />
+                      <Signup />
                     </a>
                   </li>
                 </Center>

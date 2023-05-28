@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Center,
   Flex,
@@ -15,17 +15,8 @@ import {
   Image,
 } from "@chakra-ui/react";
 import PetCard from "../components/PetCard";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import petsroutes from "../routes/petsroutes";
 import fondogatos from "../design/fondo_gatos.jpg";
-
-/**
- * add a button
- * on click of button, call getAllPets
- * set the state of animals to the response
- *
- */
 
 const Pets = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -43,8 +34,8 @@ const Pets = () => {
 
   const getAllPets = async () => {
     try {
-      const response = await axios.get("http://localhost:3002/api/pets");
-      return response.data;
+      const response = await petsroutes.allPets();
+      return response;
     } catch (error) {
       console.log(error);
     }
